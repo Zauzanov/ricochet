@@ -1,4 +1,4 @@
-import urllib.parse
+import urllib.parse                                     # Converts Python structures into HTTP format, producing HTTP-request bodies, that servers can parse. 
 import urllib.request
 
 url = 'https://example.com/'
