@@ -13,5 +13,5 @@ parser = etree.HTMLParser()                             # Creates an HTML parser
 content = etree.parse(BytesIO(content), parser=parser)  # etree.parse() reads from the stream and parses it into an ElementTree object.
                                                         # etree.parse() likes to parse from a filename or a file-like object. 
                                                         # The HTTP response body is raw bytes, so BytesIO(content) wraps those bytes as a file-like stream.   
-for link in content.findall('//a'):                     # Finds all URLs: `//a` is an XPath expression to find every <a> tags in the doc.
+for link in content.findall('.//a'):                     # Finds all URLs: `//a` is an XPath expression to find every <a> tags in the doc.
     print(f"{link.get('href')} -> {link.text}")         # Prints the attibute value of href plus the direct text content inside the <a> tag. 
