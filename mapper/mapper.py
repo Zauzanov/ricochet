@@ -24,3 +24,20 @@ def gather_paths():
             print(path)
             web_paths.put(path)
 
+@contextlib.contextmanager
+def chdir(path):
+    '''
+    First, follow the specified path. 
+    At the end, return to the original directory.
+    '''
+    this_dir = os.getcwd()
+    os.chdir(path)
+    try:
+        yield
+    finally:
+        os.chdir(this_dir)
+
+if __name__ == '__main__':
+    with chdir("/home/kali/Downloads/wordpress"):
+        gather_paths()
+    input('Press return to continue.')
