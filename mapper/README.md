@@ -1,0 +1,1 @@
+1. Download and unpack a copy of WordPress: https://wordpress.org/download/
