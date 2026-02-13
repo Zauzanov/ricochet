@@ -117,7 +117,7 @@ Server: Apache/2.4.66 (Debian)
 Content-Type: text/html; charset=iso-8859-1
 ```
 
-## 8. Then enter to continue: 
+## 8. Then press Enter to continue: 
 ```bash
 .../wp-admin/js/widgets/media-video-widget.js
 /wp-admin/js/widgets/media-gallery-widget.min.js
