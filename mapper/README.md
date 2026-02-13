@@ -1,3 +1,7 @@
+# wp-mapper
+A Python-based WordPress mapper, a small content-discovery tool  that uses a local WordPress directory tree as a wordlist to enumerate a target site. For lab/authorized testing.
+
+## 
 ## 1. Download and unpack a copy of WordPress: https://wordpress.org/download/ here: `/home/kali/Downloads/wordpress`
 ## 2. Local Wordpress with Docker:
 ```bash
