@@ -62,7 +62,7 @@ def run():
         thread.join()
 
 if __name__ == '__main__':
-    with chdir("/home/kali/Downloads/wordpress"):
+    with chdir("/home/kali/Downloads/wordpress"):                       # Our local WP directory is functioning as a wordlist of potential web paths.
         gather_paths()
     input('Press return to continue.')
 
