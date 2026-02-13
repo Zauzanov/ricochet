@@ -39,4 +39,80 @@ volumes:
 ```bash
 docker compose up -d
 ```
-## 4. Then open http://localhost:8080 and finish the WP setup.
+## 4. Then open http://localhost:8080 and finish the WP setup. You can test the mapper without registering/logging in. We are just testing if WP endpoints exist.
+
+## 5. Run:
+```bash
+python mapper.py 
+```
+## 6. You are good, if you see something like this: 
+#### OUTPUT:
+```bash
+/wp-comments-post.php
+/wp-activate.php
+/wp-cron.php
+/readme.html
+/wp-trackback.php
+/wp-config-sample.php
+/wp-load.php
+/wp-login.php
+/wp-mail.php
+/wp-settings.php
+/wp-blog-header.php
+/wp-links-opml.php
+/xmlrpc.php
+/index.php
+/wp-signup.php
+/license.txt
+/wp-includes/class-wp-block.php
+...
+/wp-content/plugins/akismet/class.akismet.php
+/wp-content/plugins/akismet/readme.txt
+/wp-content/plugins/akismet/index.php
+/wp-content/plugins/akismet/.htaccess
+/wp-content/plugins/akismet/class.akismet-widget.php
+/wp-content/plugins/akismet/LICENSE.txt
+/wp-content/plugins/akismet/class.akismet-rest-api.php
+/wp-content/plugins/akismet/changelog.txt
+/wp-content/plugins/akismet/wrapper.php
+/wp-content/plugins/akismet/_inc/akismet.js
+/wp-content/plugins/akismet/_inc/akismet-frontend.js
+/wp-content/plugins/akismet/_inc/akismet-admin.js
+/wp-content/plugins/akismet/_inc/img/akismet-refresh-logo.svg
+/wp-content/plugins/akismet/_inc/img/arrow-left.svg
+/wp-content/plugins/akismet/views/compatible-plugins.php
+/wp-content/plugins/akismet/views/activate.php
+```
+We see full paths to .txt and .js files. Good! Our mapper is discovering directories and enumerating files under them. 
+
+## 7. You can verify it using curl:
+```bash
+┌──(kali㉿kali)-[~]
+└─$ curl -I http://localhost:8080/wp-content/plugins/akismet/changelog.txt
+HTTP/1.1 403 Forbidden
+Date: Fri, 13 Feb 2026 00:56:51 GMT
+Server: Apache/2.4.66 (Debian)
+Content-Type: text/html; charset=iso-8859-1
+
+                                                                             
+┌──(kali㉿kali)-[~]
+└─$ curl -I http://localhost:8080/wp-content/plugins/akismet/_inc/akismet.js
+HTTP/1.1 200 OK
+Date: Fri, 13 Feb 2026 00:57:27 GMT
+Server: Apache/2.4.66 (Debian)
+Last-Modified: Wed, 29 Oct 2025 23:16:57 GMT
+ETag: "3142-64254542a2c40"
+Accept-Ranges: bytes
+Content-Length: 12610
+Vary: Accept-Encoding
+Content-Type: text/javascript
+
+                                                                             
+┌──(kali㉿kali)-[~]
+└─$ curl -I http://localhost:8080/wp-content/plugins/akismet/class.akismet-rest-api.php
+
+HTTP/1.1 403 Forbidden
+Date: Fri, 13 Feb 2026 00:59:01 GMT
+Server: Apache/2.4.66 (Debian)
+Content-Type: text/html; charset=iso-8859-1
+```
