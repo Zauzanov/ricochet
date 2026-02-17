@@ -18,6 +18,10 @@ web_paths = queue.Queue()
 
 
 def gather_paths():
+    """
+    Walks the current directory recursively and pushes all file paths 
+    into the web_paths queue. This makes the local WP directory act like a wordlist.
+    """
     for root, _, files in os.walk("."):
         for fname in files:
             if os.path.splitext(fname)[1].lower() in FILTERED:
@@ -37,6 +41,10 @@ def gather_paths():
 
 @contextlib.contextmanager
 def chdir(path):
+    """
+    Temporarily changes the working directory for the duration of a 'with' block,
+    then always returns to the original directory afterward.
+    """
     this_dir = os.getcwd()
     os.chdir(path)
     try:
@@ -46,31 +54,42 @@ def chdir(path):
 
 
 def test_remote():
-    # One session per thread.
+    """
+    Worker function (runs in each thread):
+    - Pulls a path from web_paths;
+    - Builds a full URL;
+    - Request it;
+    - Records URLs that return 200 OK.
+    """
+    # One session per thread keeps connection alive.
     session = requests.Session()
 
     while True:
         try:
-            path = web_paths.get_nowait()
+            path = web_paths.get_nowait()                               # No blocking: grabs next job from queue immediately.
         except Empty:
-            return
+            return                                                      # Exits the worker, if no more jobs left.
 
+        # Safely joins base + path, preventing missing/double slashes).
+        # Removes specified characters from the left (leading) and right (trailing) ends of a string:
         url = urljoin(TARGET.rstrip("/") + "/", path.lstrip("/"))
 
+        # Sleeps betwwen 0.2 and 0.6 seconds. 
+        # Randomness prevents bursty 'all threads at once' traffic.
         time.sleep(0.2 + random.random() * 0.4)
 
         try:
-            r = session.get(url, timeout=5)
+            r = session.get(url, timeout=5)                             # Send HTTP GET. timeout prevents hangs.
             if r.status_code == 200:
                 answers.put(url)
                 sys.stdout.write("+")
             else:
                 sys.stdout.write("-")
         except requests.RequestException:
-            sys.stdout.write("!")
+            sys.stdout.write("!")                                       # Print '!' for network errors/timeouts.
         finally:
             sys.stdout.flush()
-            web_paths.task_done()
+            web_paths.task_done()                                       # Marks this queue item as fully processed.
 
 
 def run():
