@@ -93,13 +93,18 @@ def test_remote():
 
 
 def run():
+    """
+    Start THREADS worker threads, then wait until the web_paths queue is fully processed.
+    """
     threads = []
-    for i in range(THREADS):
-        t = threading.Thread(target=test_remote, daemon=True)
+    for i in range(THREADS):                                            # Spawns the requested number of workers.
+        t = threading.Thread(target=test_remote, daemon=True)           # daemon=True: thread will not block program exit.
+                                                                        # daemon=True means our worker threads are “background” threads that will be stopped automatically 
+                                                                        # when the main program exits, so they won’t keep the program running. 
         threads.append(t)
         t.start()
 
-    web_paths.join()
+    web_paths.join()                                                    # Block until every queued path gets task_done().
 
 
 if __name__ == "__main__":
