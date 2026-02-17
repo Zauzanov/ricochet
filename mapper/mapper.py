@@ -80,13 +80,16 @@ def run():
     for thread in mythreads:                                                # As each thread is running test_remote(), it waits until all threads finish before continuing. 
         thread.join()
 
-if __name__ == '__main__':
-    with chdir("/home/kali/Downloads/wordpress"):                       # Our local WP directory is functioning as a wordlist of potential web paths.
-        gather_paths()
-    input('Press return to continue.')
 
-    run()
-    with open('myanswers.txt', 'w') as f:
+
+if __name__ == '__main__':
+    # Temporarily switches into this directory:
+    with chdir("/home/kali/Downloads/wordpress"):                       # Our local WP directory is functioning as a wordlist of potential web paths.
+        gather_paths()                                                  # Builds the queue of web paths from our local WP directory, using it as a wordlist of candidate web paths.
+    input('Press return to continue.')                                  # Pauses, giving us a chance to review the gathered paths before scanning starts.
+
+    run()                                                               # Starts threads and tests all collected paths against the target.
+    with open('myanswers.txt', 'w') as f:                               # Opens a file for writing. 
         while not answers.empty():
-            f.write(f'{answers.get()}\n')
+            f.write(f'{answers.get()}\n')                               # While the answers queue has items, it pops each UEL and writes it.
     print('done')
