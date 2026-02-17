@@ -49,7 +49,11 @@ def chdir(path):
 
 
 
-# Worker function that checks paths against the target:
+'''
+test_remote() is a worker function(designed to be run by a thread) that checks paths against the target:
+- Producer gather_paths(): creates tasks (paths) and puts them into web_paths.
+- Worker test_remote(): repeatedly take one task from web_paths, do the HTTP request, and record results
+'''
 def test_remote():
     while not web_paths.empty():                                            # Loops while there is still work.
         path = web_paths.get()                                              # Takes one path from the queue.
