@@ -1,10 +1,10 @@
-import contextlib
-import os
-import queue
-import requests
-import sys
-import threading
-import time
+import contextlib                                                           # Gives utilities for writing context managers. We use it to make chdir() work with 'with'.
+import os                                                                   # os.walk() to traverse dirs; os.path helpers; os.getcwd()/chdir() to change dirs.
+import queue                                                                # Thread-safe queues. queue.Queue() to safely share work/results between threads. 
+import requests                                                             # Send GET reqs to the target server.
+import sys                                                                  # Access to stdout.
+import threading                                                            # Lets us spawn threads to run test_remote() concurrently.
+import time                                                                 # Against throttling.
 
 FILTERED = [".jpg", ".gif", ".png", ".css"]
 TARGET = "http://localhost:8080"
