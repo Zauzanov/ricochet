@@ -67,15 +67,17 @@ def test_remote():
             sys.stdout.write('-')
         sys.stdout.flush()                                                  # Forces it to appear immediately. 
 
+
+# Starts and join threads.
 def run():
-    mythreads = list()
-    for i in range(THREADS):
-        print(f'Spawning thread {i}')
-        t = threading.Thread(target=test_remote)
-        mythreads.append(t)
-        t.start()
+    mythreads = list()                                                      # Creates a list to keep thread objects so we can join them later.
+    for i in range(THREADS):                                                # Loops 10 times.
+        print(f'Spawning thread {i}')                                       # Prints a line for each thread we start.
+        t = threading.Thread(target=test_remote)                            # Creates a thread that will run test_remote().
+        mythreads.append(t)                                                 # Saves it in the list. 
+        t.start()                                                           # Launch the thread.
     
-    for thread in mythreads:
+    for thread in mythreads:                                                # As each thread is running test_remote(), it waits until all threads finish before continuing. 
         thread.join()
 
 if __name__ == '__main__':
