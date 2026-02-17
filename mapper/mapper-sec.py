@@ -111,9 +111,10 @@ if __name__ == "__main__":
     with chdir("/home/kali/Downloads/wordpress"):
         gather_paths()
 
-    input("Press return to continue.")
-    run()
+    input("Press return to continue.")                                  # Pause before sending requests (safety checkpoint).
+    run()                                                               # Perform the remote enumeration.
 
+    # Write all discovered 200-OK URLs to a file:
     with open("myanswers.txt", "w") as f:
         while not answers.empty():
             f.write(f"{answers.get()}\n")
