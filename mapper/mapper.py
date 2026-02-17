@@ -14,16 +14,24 @@ THREADS = 10                                                                # Nu
 answers = queue.Queue()                                                     # Where we store successful(200) URLs.
 web_paths = queue.Queue()                                                   # This one holds all the paths we plan to test, think of it as a wordlist. 
 
+# Buils the wordlist from disk, collecting local file paths:
 def gather_paths():
+    # os.walk('.') recursively traverses the current directory: 
+    # It yields tuples (root, dirs, files). 
+    # We used _ to ignore dirs (don’t need the subdirectory list):
     for root, _, files in os.walk('.'):
-        for fname in files:
-            if os.path.splitext(fname)[1] in FILTERED:
+        for fname in files:                                                 # Iterates each filename in the current dir.
+            if os.path.splitext(fname)[1] in FILTERED:                      # Returns (name_without_ext, ext): [1] is the extension, like .png. If that extension is in FILTERED, it skips it.
                 continue
+            # Builds the full local path
             path = os.path.join(root, fname)
+            # Removes the leading dot
             if path.startswith('.'):
                 path = path[1:]
             print(path)
-            web_paths.put(path)
+            web_paths.put(path)                                             # Adds the path to the queue so threads can consume it later.
+
+
 
 @contextlib.contextmanager
 def chdir(path):
