@@ -6,12 +6,13 @@ import sys                                                                  # Ac
 import threading                                                            # Lets us spawn threads to run test_remote() concurrently.
 import time                                                                 # Against throttling.
 
-FILTERED = [".jpg", ".gif", ".png", ".css"]
-TARGET = "http://localhost:8080"
-THREADS = 10
+FILTERED = [".jpg", ".gif", ".png", ".css"]                                 # A list of file extensions we don’t want to test remotely.
+TARGET = "http://localhost:8080"                                            # The target web server we are mapping. 
+THREADS = 10                                                                # Number of worker threads to spawn for remote testing.
 
-answers = queue.Queue()
-web_paths = queue.Queue()
+# Shared queues
+answers = queue.Queue()                                                     # Where we store successful(200) URLs.
+web_paths = queue.Queue()                                                   # This one holds all the paths we plan to test, think of it as a wordlist. 
 
 def gather_paths():
     for root, _, files in os.walk('.'):
