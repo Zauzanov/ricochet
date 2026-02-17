@@ -33,18 +33,19 @@ def gather_paths():
 
 
 
-@contextlib.contextmanager
+# chdir() — temporary directory change as a context manager. 
+@contextlib.contextmanager                                                  # This decorator lets us write a generator that behaves like a context manager.
 def chdir(path):
     '''
     First, follow the specified path. 
     At the end, return to the original directory.
     '''
-    this_dir = os.getcwd()
-    os.chdir(path)
+    this_dir = os.getcwd()                                                  # Saves your current working directory so you can return later.
+    os.chdir(path)                                                          # Moves into the directory we want (our WP file tree).
     try:
-        yield
+        yield                                                               # `yield` hands control back to the `with` block. Everything inside `with chdir(...)`: runs while you’re in that directory.
     finally:
-        os.chdir(this_dir)
+        os.chdir(this_dir)                                                  # Always runs (even if an exception happens), restoring the original directory.
 
 def test_remote():
     while not web_paths.empty():
