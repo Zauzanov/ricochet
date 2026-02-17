@@ -47,18 +47,21 @@ def chdir(path):
     finally:
         os.chdir(this_dir)                                                  # Always runs (even if an exception happens), restoring the original directory.
 
+
+
+# Worker function that checks paths against the target:
 def test_remote():
-    while not web_paths.empty():
-        path = web_paths.get()
-        url = f'{TARGET}{path}'
-        time.sleep(2)                              
-        r = requests.get(url)
-        if r.status_code == 200:
-            answers.put(url)
-            sys.stdout.write('+')
+    while not web_paths.empty():                                            # Loops while there is still work.
+        path = web_paths.get()                                              # Takes one path from the queue.
+        url = f'{TARGET}{path}'                                             # Builds the full URL string.
+        time.sleep(2)                                                       # Pauses for 2 secs before each request.
+        r = requests.get(url)                                               # Sends a GET request to the formed URL.
+        if r.status_code == 200:                                            # Checks the status code.
+            answers.put(url)                                                # If 200, store the URL in the found queue. 
+            sys.stdout.write('+')                                           # Writes '+' for success, '-' for else. 
         else:
             sys.stdout.write('-')
-        sys.stdout.flush()
+        sys.stdout.flush()                                                  # Forces it to appear immediately. 
 
 def run():
     mythreads = list()
