@@ -1,13 +1,13 @@
-import contextlib
-import os
-import queue
-import random
-import requests
+import contextlib 
+import os 
+import queue 
+import random                                                           # To randomize sleep time
+import requests 
 import sys
 import threading
 import time
-from queue import Empty
-from urllib.parse import urljoin
+from queue import Empty                                                 # Exception raised by Queue.get_nowait() when the queue is empty.
+from urllib.parse import urljoin                                        # Correctly join base URL + path (handles slashes safely).
 
 FILTERED = {".jpg", ".gif", ".png", ".css"}
 TARGET = "http://localhost:8080"
