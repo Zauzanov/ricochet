@@ -13,12 +13,12 @@ def get_words(resume=None):
 
     def extend_words(word):
         if "." in word:
-            word.put(f'/{word}')
+            words.put(f'/{word}')
         else:
-            word.put(f'/{word}/')
+            words.put(f'/{word}/')
         
         for extension in EXTENSTIONS:
-            word.put(f'/{word}{extension}')
+            words.put(f'/{word}{extension}')
     
     with open(WORDLIST) as f:
         raw_words = f.read()
@@ -63,4 +63,4 @@ if __name__ == '__main__':
     for _ in range(THREADS):
         t = threading.Thread(target=dir_bruter, args=(words,))
         t.start()
-        
+
