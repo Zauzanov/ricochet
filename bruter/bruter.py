@@ -7,7 +7,7 @@ AGENT = "Mozilla/5.0 (X11; Linux i686; U;rv: 1.7.13) Gecko/20070322 Kazehakase/0
 EXTENSTIONS = ['.php', '.bak', '.orig', '.inc']
 TARGET = "http://192.168.204.129/"
 THREADS = 10
-WORDLIST = "/home/kali/Downloads/all.txt"
+WORDLIST = "/home/kali/Downloads/all.txt"                                               # Choose any from usr/share/wordlists/seclists/Discovery/web-content
 
 def get_words(resume=None):
 
