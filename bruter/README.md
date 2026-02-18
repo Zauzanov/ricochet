@@ -22,10 +22,7 @@ Entries
 lang
 home.php
 setup.php
-...
-Press return to continue.
-sudo python wr01.py 2> /dev/null
-[sudo] password for kali: 
+... 
 Press return to continue.
 
 
