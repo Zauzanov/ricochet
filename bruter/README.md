@@ -1,4 +1,6 @@
 # Bruter
+A multi-threaded web content discovery tool for finding hidden web content using a wordlist + common extensions. Built for security labs and CTF practice.
+## 
 
 ## 1. Preparations: 
 #### 1.2 Download a wordlist for finding resources on a web-app: https://github.com/danielmiessler/SecLists/tree/master/Discovery/Web-Content/File-Extensions-Universal-SVNDigger-Project
