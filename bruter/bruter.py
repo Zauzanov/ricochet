@@ -3,7 +3,7 @@ import requests
 import threading
 import sys 
 
-AGENT = "Mozilla/5.0 (X11; Linux i686; U;rv: 1.7.13) Gecko/20070322 Kazehakase/0.4.4.1"
+AGENT = "Mozilla/5.0 (X11; Linux i686; U;rv: 1.7.13) Gecko/20070322 Kazehakase/0.4.4.1" # Choose any: https://github.com/danielmiessler/SecLists/blob/master/Fuzzing/User-Agents/UserAgents.fuzz.txt
 EXTENSTIONS = ['.php', '.bak', '.orig', '.inc']
 TARGET = "http://192.168.204.129/"
 THREADS = 10
