@@ -3,10 +3,14 @@ import requests                                                                 
 import threading                                                                        # To create multiple threads to do requests in parallel.
 import sys                                                                              # Gives access to stdin/out/err. We use them to print progress markers and so on. 
 
+
+# Some servers behave differently depending on User-agent, 
+# so this makes our requests look like a browser:
 AGENT = "Mozilla/5.0 (X11; Linux i686; U;rv: 1.7.13) Gecko/20070322 Kazehakase/0.4.4.1" # Choose any: https://github.com/danielmiessler/SecLists/blob/master/Fuzzing/User-Agents/UserAgents.fuzz.txt
-EXTENSTIONS = ['.php', '.bak', '.orig', '.inc']
-TARGET = "http://192.168.204.129/"
-THREADS = 10
+EXTENSTIONS = ['.php', '.bak', '.orig', '.inc']                                         # List of file extenstions to try for each word.
+TARGET = "http://192.168.204.129/"                                                      # URL we are scanning. Every candidate path gets appended to this.
+THREADS = 10                                                                            # Number of worker threads to spawn.
+# File path to a wordlist containing candidate directory/file names:
 WORDLIST = "/home/kali/Downloads/all.txt"                                               # Choose any from usr/share/wordlists/seclists/Discovery/web-content
 
 def get_words(resume=None):
