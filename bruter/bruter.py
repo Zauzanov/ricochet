@@ -49,21 +49,24 @@ def get_words(resume=None):                                                     
     return words                                                                        # Returns the filled queue.
 
 
+# Worker func run by each thread:
+# consumes itmes from the queue and performs GET requests:
 def dir_bruter(words):
-    headers = {'User-Agent': AGENT}
-    while not words.empty():
-        url = f'{TARGET}{words.get()}'
+    headers = {'User-Agent': AGENT}                                                     # Prepares the headers to send with every requests, using our custom UA.
+    while not words.empty():                                                            # Loops until the queue appears empty.
+        url = f'{TARGET}{words.get()}'                                                  # Removes one path from the queue, building full URL: TARGET+/admin/.
         try:
-            r = requests.get(url, headers=headers)
+            r = requests.get(url, headers=headers)                                      # Sends a GET request.
         except requests.exceptions.ConnectionError:
-            sys.stderr.write('x');sys.stderr.flush()
+            sys.stderr.write('x');sys.stderr.flush()                                    # If connection fails(host down/refused), it prints x to stderr.
             continue
-        if r.status_code == 200:
-            print(f'\nSuccess ({r.status_code}: {url})')
+        # Status code handling: 
+        if r.status_code == 200:                                                        # If HTTP 200 OK: likely found something.
+            print(f'\nSuccess ({r.status_code}: {url})')                                # Prints a newline first, so the success does'nt get buried in dots.
         elif r.status_code == 404:
-            sys.stderr.write('.');sys.stderr.flush()
+            sys.stderr.write('.');sys.stderr.flush()                                    # If 404 Not Found, prints a dot to stderr. Flushes so we see it immediately.
         else:
-            print(f'{r.status_code} => {url}')
+            print(f'{r.status_code} => {url}')                                          # For anything else(301 redirect, 403 forbiddeg, 500 error and so on).
 
 
 if __name__ == '__main__':
