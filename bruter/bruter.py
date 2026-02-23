@@ -32,20 +32,21 @@ def get_words(resume=None):                                                     
     with open(WORDLIST) as f:
         raw_words = f.read()                                                            # Loads the wordlist, reading it into memory as one string.
 
-    found_resume = False
-    words = queue.Queue()
-    for word in raw_words.split():
-        if resume is not None:
+    # Resume & queue building:
+    found_resume = False                                                                # Tracks whether we've reached the resume point yet.
+    words = queue.Queue()                                                               # The thread-safe queue that will hold all generated paths.
+    for word in raw_words.split():                                                      # Splits the wordlist on whitespace and iterates each token.
+        if resume is not None:                                                          # If resume was provided before resume word, it skips. Once we hit the resume word, it flips the flag and start adding subsequent words. 
             if found_resume:
                 extend_words(word)
             elif word == resume:
                 found_resume = True
                 print(f'Resuming wordlist from: {resume}')
-        
+        # Normal mode(no resume):
         else:
-            print(word)
-            extend_words(word)
-    return words 
+            print(word)                                                                 # If resume isn't provided: print each word.
+            extend_words(word)                                                          # Enqueues its variants via extent_words. 
+    return words                                                                        # Returns the filled queue.
 
 
 def dir_bruter(words):
