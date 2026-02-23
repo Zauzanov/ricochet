@@ -1,7 +1,7 @@
-import queue
-import requests
-import threading
-import sys 
+import queue                                                                            # The thread-safe queue. Use it to store paths that multiple threads can safely consume.
+import requests                                                                         # To sed GET requests to the target URL.
+import threading                                                                        # To create multiple threads to do requests in parallel.
+import sys                                                                              # Gives access to stdin/out/err. We use them to print progress markers and so on. 
 
 AGENT = "Mozilla/5.0 (X11; Linux i686; U;rv: 1.7.13) Gecko/20070322 Kazehakase/0.4.4.1" # Choose any: https://github.com/danielmiessler/SecLists/blob/master/Fuzzing/User-Agents/UserAgents.fuzz.txt
 EXTENSTIONS = ['.php', '.bak', '.orig', '.inc']
