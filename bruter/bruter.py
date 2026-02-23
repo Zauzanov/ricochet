@@ -13,19 +13,24 @@ THREADS = 10                                                                    
 # File path to a wordlist containing candidate directory/file names:
 WORDLIST = "/home/kali/Downloads/all.txt"                                               # Choose any from usr/share/wordlists/seclists/Discovery/web-content
 
-def get_words(resume=None):
-
-    def extend_words(word):
+# Builds and returns a Queue of paths to bruteforce
+def get_words(resume=None):                                                             # `resume` let us restart mid-wordlist from a given word.
+    
+    def extend_words(word):                                                             # Inner helper function that takes a single word and enqueues multiple URL path variant.
+        '''
+        If the word already contains a dot(admin.php), it treats it like a file(/admin.php).
+        Otherwise it treats like a dir(/admin/).
+        '''
         if "." in word:
-            words.put(f'/{word}')
+            words.put(f'/{word}') 
         else:
             words.put(f'/{word}/')
         
-        for extension in EXTENSTIONS:
+        for extension in EXTENSTIONS:                                                   # Tries the word(admin) as a file base name with each extenstion: /admin.bak, /admin.orig and so on. 
             words.put(f'/{word}{extension}')
     
     with open(WORDLIST) as f:
-        raw_words = f.read()
+        raw_words = f.read()                                                            # Loads the wordlist, reading it into memory as one string.
 
     found_resume = False
     words = queue.Queue()
