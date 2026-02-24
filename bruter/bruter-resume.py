@@ -70,7 +70,7 @@ def dir_bruter(words):
 
 
 if __name__ == '__main__':
-    resume = sys.argv[1] if len(sys.argv) > 1 else None
+    resume = sys.argv[1] if len(sys.argv) > 1 else None                                 # Makes resume functinality usable from CLI: python bruter-resume.py admin.
     words = get_words(resume=resume)                                                    # Builds the queue using the wordlist.
     print('Press return to continue.')                                                  # Pauses until we press Enter.
     sys.stdin.readline()                                                                # Does nothing until we press Enter.
