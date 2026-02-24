@@ -70,10 +70,14 @@ def dir_bruter(words):
 
 
 if __name__ == '__main__':
-    words = get_words()
-    print('Press return to continue.')
-    sys.stdin.readline()
-    for _ in range(THREADS):
-        t = threading.Thread(target=dir_bruter, args=(words,))
+    words = get_words()                                                                 # Builds the queue using the wordlist.
+    print('Press return to continue.')                                                  # Pauses until we press Enter.
+    sys.stdin.readline()                                                                # Does nothing until we press Enter.
+    # The loop index isn't used, as we don't care about this value:
+    for _ in range(THREADS):                                                            # Spawns THREADS worker threads. 
+        t = threading.Thread(target=dir_bruter, args=(words,))                          # The loop runs 10 times and starts 10 threads — each thread runs dir_bruter(words). 
         t.start()
+
+# get_words() create the work(the queue full of paths);
+# dir_bruter(words) consumes the work ( takes imes out of the queue and sends requests).
 
