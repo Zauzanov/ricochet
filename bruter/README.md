@@ -195,3 +195,37 @@ Success (200): http://192.168.204.129//twiki/
 
 
 ```
+
+## 3. How to use Resume functionality (resume scanning after a particular word from the wordlist):
+### 3.1 Let's say our last visible output before we stoppes was:
+```bash
+... 
+uploads
+user
+admin
+backup
+...
+```
+
+### 3.2 Edit the line like this: 
+```python
+if __name__ == '__main__':
+    words = get_words(resume="admin")       
+```
+### 3.3 Run:
+```bash                    
+python bruter.py 2> /dev/null
+Resuming wordlist from: admin 
+Press return to continue.
+```
+```bash
+Success (200: http://192.168.204.129//phpinfo.php)
+403 => http://192.168.204.129//.htaccess
+403 => http://192.168.204.129//.htaccess.bak
+403 => http://192.168.204.129//.htaccess.php
+403 => http://192.168.204.129//.htaccess.inc
+403 => http://192.168.204.129//.htaccess.orig
+Success (200: http://192.168.204.129//index.php)
+Success (200: http://192.168.204.129//index/)
+Success (200: http://192.168.204.129//index.php)
+```
