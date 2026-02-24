@@ -229,3 +229,23 @@ Success (200: http://192.168.204.129//index.php)
 Success (200: http://192.168.204.129//index/)
 Success (200: http://192.168.204.129//index.php)
 ```
+## 4. Or if you want to add Resume word using CLI, you can use 'bruter-resume.py' like this:
+```bash
+python bruter-resume.py admin 2> /dev/null 
+Resuming wordlist from: admin
+Press return to continue.
+
+
+Success (200: http://192.168.204.129//phpinfo.php)
+403 => http://192.168.204.129//.htaccess.bak
+403 => http://192.168.204.129//.htaccess
+403 => http://192.168.204.129//.htaccess.php
+403 => http://192.168.204.129//.htaccess.inc
+403 => http://192.168.204.129//.htaccess.orig
+
+Success (200: http://192.168.204.129//index/)
+
+Success (200: http://192.168.204.129//index.php)
+
+Success (200: http://192.168.204.129//index.php)
+```
