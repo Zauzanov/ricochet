@@ -41,4 +41,11 @@ volumes:
 ```bash
 docker compose up -d
 ```
-## 4. Then open http://localhost:8080 and finish the WP setup. You can test the mapper without registering/logging in. We are just testing if WP endpoints exist.
+## 4. Then open http://localhost:8080 and finish the WP setup. 
+
+## 5. Register on WordPress using a simple pair of credentials in order to test the bruteforce tool in a safe environment.
+
+## 6. Download the wordlist here `/home/kali/Downloads/`: 
+```bash
+wget https://raw.githubusercontent.com/danielmiessler/SecLists/refs/heads/master/Passwords/Software/cain-and-abel.txt
+```
