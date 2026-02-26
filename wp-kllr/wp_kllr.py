@@ -39,5 +39,10 @@ class Bruter:
         print(f'\nBrute Force Attack beginning on {url}.\n')
         print("Finished the setup where username = %s\n" % username)
     
+    def run_bruteforce(self, passwords):
+        for _ in range(10):
+            t = threading.Thread(target=self.web_bruter, args=(passwords,))
+            t.start()
+    
     
         
