@@ -21,3 +21,12 @@ def get_words():
         words.put(word)
     return words
 
+def get_params(content):
+    params = dict()
+    parser = etree.HTMLParser()
+    tree = etree.parse(BytesIO(content), parser=parser)
+    for elem in tree.findall('//input'):
+        name = elem.get('name')
+        if name is not None:
+            params[name] = elem.get('value', None)
+    return params 
