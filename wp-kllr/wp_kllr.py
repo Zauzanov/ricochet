@@ -30,3 +30,14 @@ def get_params(content):
         if name is not None:
             params[name] = elem.get('value', None)
     return params 
+
+class Bruter:
+    def __init__(self, username, url):
+        self.username = username
+        self.url = url
+        self.found = False
+        print(f'\nBrute Force Attack beginning on {url}.\n')
+        print("Finished the setup where username = %s\n" % username)
+    
+    
+        
