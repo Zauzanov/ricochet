@@ -1,12 +1,14 @@
-from io import BytesIO
-from lxml import etree
-from queue import Queue
+from io import BytesIO                                          # Allows to treat bytes in memory like a file. 
+                                                                # Here HTML response content comes in as bytes, and lxml is given a file-like object built from those bytes.
+from lxml import etree                                          # Used for parsing HTML/XML and walking through elements.
+from queue import Queue                                         # Handles synchronization internally, so several threads can safely
+                                                                # add items with put() and remove items with get() at the same time.
 
-import requests 
-import threading
-import time
+import requests                                                 # To make HTTP requests like GET and POST.
+import threading                                                # Lets us create multiple threads that run concurrently. 
+import time                                                     # To pause each worker thread for 5 seconds between attempts.
 
-SUCCESS = 'Welcome to WordPress!' 
+SUCCESS = 'Welcome to WordPress!'                               # Our code later checks whether this string appears in a response body. If it does, the code treats that as success.
 TARGET = "http://localhost:8080/wp-login.php"
 WORDLIST = "/home/kali/Downloads/cain-and-abel.txt" 
 
