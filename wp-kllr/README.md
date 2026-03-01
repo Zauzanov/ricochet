@@ -1,5 +1,7 @@
 # wordpress-killer
 
+Python pentest-lab project for authorized authentication workflow testing, session handling, HTML form parsing, and multithreaded request automation in a controlled environment — a local WordPress setup.
+
 ## 1. Download and unpack a copy of WordPress: https://wordpress.org/download/ here: `/home/kali/Downloads/wordpress`
 ## 2. Local Wordpress with Docker:
 ```bash
