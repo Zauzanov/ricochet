@@ -29,15 +29,18 @@ def get_words():
 
 
 
-def get_params(content):
-    params = dict()
-    parser = etree.HTMLParser()
-    tree = etree.parse(BytesIO(content), parser=parser)
-    for elem in tree.findall('//input'):                                                # Finds all input elements.
-        name = elem.get('name')
-        if name is not None:
-            params[name] = elem.get('value', None)
-    return params 
+# Extracts HTML form input fields into a Python dictionary.
+def get_params(content):                                        # content is HTML response content in bytes.
+    params = dict()                                             # Creates an empty dictionary. This will store key-value pairs extracted from HTML input elements.
+    parser = etree.HTMLParser()                                 # Creates an HTML parser object from lxml. This parser is meant to parse HTML content.
+    tree = etree.parse(BytesIO(content), parser=parser)         # Wraps `content` bytes in a `BytesIO` object so it behaves like a file. `tree` becomes the parsed HTML document.
+    # Loops through all <input> elements in the parsed HTML:
+    for elem in tree.findall('//input'):                        # Finds all input elements.
+        name = elem.get('name')                                 # Reads the name attribute from the current input element: <input name="log" ...> name becomes "log".
+        if name is not None:                                    # Checks that the input actually has a `name` attribute. If there is no `name`, it skips that element.
+            params[name] = elem.get('value', None)              # Uses the input’s `name` as the dictionary key, and the input’s `value` attribute as the dictionary value. 
+                                                                # If there is no `value`, it stores `None`. 
+    return params                                               # Returns the completed dictionary. 
 
 class Bruter:
     def __init__(self, username, url):
