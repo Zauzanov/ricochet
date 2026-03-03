@@ -42,14 +42,20 @@ def get_params(content):                                        # content is HTM
                                                                 # If there is no `value`, it stores `None`. 
     return params                                               # Returns the completed dictionary. 
 
+
+# Creating objects
 class Bruter:
-    def __init__(self, username, url):
-        self.username = username
-        self.url = url
-        self.found = False
+    '''
+    # __init__ is a constructor — this runs automatically when we create an object here: `b = Bruter('admin', TARGET)`.
+    # Python creates an instance of the class, and automatically calls: __init__(self, username, url).
+    '''
+    def __init__(self, username, url):                          # self = the object being created.                  
+        self.username = username                                # Saves the passed-in `username` onto the object, so it becomes an instance attribute. If you pass `admin`, it becomes `self.username == admin`.
+        self.url = url                                          # If you passed `TARGET` here: `b = Bruter('admin', TARGET)`, then: `self.url == "http://localhost:8080/wp-login.php"
+        self.found = False                                      # This Object flag starts as False and becomes True once a match is found. It belongs to the object(Bruter), so all methods of the same object can access it.
         print(f'\nBrute Force Attack beginning on {url}.\n')
         print(f'\nFinished the setup where Username = {username}.\n')
-        #print("Finished the setup where username = %s\n" % username) — OLD string formatting. 
+        # print("Finished the setup where username = %s\n" % username) — Old string formatting. 
     
     def run_bruteforce(self, passwords):
         for _ in range(10):
