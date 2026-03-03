@@ -48,7 +48,8 @@ class Bruter:
         self.url = url
         self.found = False
         print(f'\nBrute Force Attack beginning on {url}.\n')
-        print("Finished the setup where username = %s\n" % username)
+        print(f'\nFinished the setup where Username = {username}.\n')
+        #print("Finished the setup where username = %s\n" % username) — OLD string formatting. 
     
     def run_bruteforce(self, passwords):
         for _ in range(10):
