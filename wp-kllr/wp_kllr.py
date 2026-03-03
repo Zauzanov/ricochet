@@ -46,8 +46,8 @@ def get_params(content):                                        # content is HTM
 # Creating objects
 class Bruter:
     '''
-    # __init__ is a constructor — this runs automatically when we create an object here: `b = Bruter('admin', TARGET)`.
-    # Python creates an instance of the class, and automatically calls: __init__(self, username, url).
+    __init__ is a constructor — this runs automatically when we create an object here: `b = Bruter('admin', TARGET)`.
+    Python creates an instance of the class, and automatically calls: __init__(self, username, url).
     '''
     def __init__(self, username, url):                          # self = the object being created.                  
         self.username = username                                # Saves the passed-in `username` onto the object, so it becomes an instance attribute. If you pass `admin`, it becomes `self.username == admin`.
