@@ -78,9 +78,11 @@ class Bruter:
             if SUCCESS in resp1.content.decode():
                 self.found = True
                 print(f"\nBruteforcing successful.")
-                print("Username is %s" % self.username)
-                print("Password is %s\n" % passwd)
-                print('done: now cleaning up other threads...')
+                print(f"Username is {self.username}")
+                print(f"Password is {passwd}\n")
+                # print("Username is %s" % self.username) — Old formatting. 
+                # print("Password is %s\n" % passwd)
+                print('Done: now cleaning up other threads...')
 
 if __name__ == '__main__':
     words = get_words()
