@@ -57,10 +57,12 @@ class Bruter:
         print(f'\nFinished the setup where Username = {username}.\n')
         # print("Finished the setup where username = %s\n" % username) — Old string formatting. 
     
+    # Creates 10 threads.
     def run_bruteforce(self, passwords):
+        # Runs the loop 10 times for that purpose, creating a new thread object.
         for _ in range(10):
             t = threading.Thread(target=self.web_bruter, args=(passwords,))
-            t.start()
+            t.start()                                           # The thread begins executing self.web_bruter(passwords).
     
     def web_bruter(self, passwords):
         session = requests.Session()
