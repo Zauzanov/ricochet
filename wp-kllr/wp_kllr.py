@@ -103,6 +103,6 @@ class Bruter:
                 print('Done: now cleaning up other threads...')
 
 if __name__ == '__main__':
-    words = get_words()
-    b = Bruter('admin', TARGET)
-    b.run_bruteforce(words)
+    words = get_words()                                         # Calls get_words(). Receives the queue of words. Stores it in `words`.
+    b = Bruter('admin', TARGET)                                 # Creates an instance of Bruter. 
+    b.run_bruteforce(words)                                     # Starts 10 worker threads on the `b`, passing the `queue` words.  
